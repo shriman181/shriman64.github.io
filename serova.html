@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serova — AI Valuation Intelligence for Pawnbrokers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --ink: #1A1714;
+    --ink-mid: #3D3830;
+    --ink-soft: #7A7267;
+    --gold: #C4933A;
+    --gold-light: #E8C97A;
+    --gold-pale: #F7EDD5;
+    --rust: #8B3A2A;
+    --teal: #1E5C52;
+    --teal-light: #2D8A7B;
+    --border: rgba(26,23,20,0.12);
+    --border-strong: rgba(26,23,20,0.22);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(245,240,232,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 9px 22px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-cta:hover { background: var(--ink); color: var(--cream); }
+
+  /* ── SECTIONS ── */
+  section { padding: 120px 60px; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding-top: 140px;
+    gap: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 80% 50%, black 30%, transparent 100%);
+    opacity: 0.5;
+  }
+  .hero-left { position: relative; z-index: 1; }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--gold);
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 5.5vw, 72px);
+    font-weight: 600;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 440px;
+    margin-bottom: 48px;
+  }
+  .hero-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    background: var(--ink);
+    color: var(--cream);
+    text-decoration: none;
+    border: 1px solid var(--ink);
+    transition: background 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+  .btn-ghost {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--ink); }
+  .btn-ghost-arrow { transition: transform 0.2s; }
+  .btn-ghost:hover .btn-ghost-arrow { transform: translateX(4px); }
+
+  .hero-right {
+    position: relative; z-index: 1;
+    display: flex; justify-content: center;
+  }
+  .hero-viz {
+    width: 100%;
+    max-width: 480px;
+    aspect-ratio: 4/3;
+    position: relative;
+  }
+
+  /* item scan card */
+  .scan-card {
+    background: white;
+    border: 1px solid var(--border-strong);
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 8px 8px 0px var(--border);
+    position: relative;
+  }
+  .scan-card-img {
+    width: 100%;
+    height: 200px;
+    background: #2A2520;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Animated scan line */
+  .scan-line {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    animation: scan 2.5s ease-in-out infinite;
+    opacity: 0.9;
+  }
+  @keyframes scan {
+    0%   { top: 10%; }
+    50%  { top: 85%; }
+    100% { top: 10%; }
+  }
+  .scan-cross {
+    position: absolute;
+    width: 40px; height: 40px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1.5px solid var(--gold-light);
+    opacity: 0.7;
+  }
+  .scan-cross::before, .scan-cross::after {
+    content: '';
+    position: absolute;
+    background: var(--gold-light);
+  }
+  .scan-cross::before { width: 1px; height: 12px; top: -6px; left: 50%; transform: translateX(-50%); }
+  .scan-cross::after  { width: 12px; height: 1px; left: -6px; top: 50%; transform: translateY(-50%); }
+
+  .item-silhouette {
+    opacity: 0.25;
+  }
+
+  .scan-card-body {
+    padding: 18px 20px;
+    border-top: 1px solid var(--border);
+  }
+  .scan-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .scan-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .scan-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .scan-metric {
+    background: var(--gold-pale);
+    padding: 10px;
+  }
+  .scan-metric-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .scan-metric-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .scan-status {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px;
+    background: #EAF5EE;
+    border: 1px solid #B5D9C2;
+  }
+  .scan-status-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #2E7D5A;
+    flex-shrink: 0;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .scan-status-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: #2E7D5A;
+  }
+
+  /* Floating tag */
+  .float-tag {
+    position: absolute;
+    top: -18px; right: -18px;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 12px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid var(--ink);
+    z-index: 2;
+    animation: float-y 3s ease-in-out infinite;
+  }
+  .float-tag span {
+    display: block;
+    font-size: 18px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    color: var(--gold-light);
+    letter-spacing: 0;
+    margin-top: 2px;
+  }
+  @keyframes float-y {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-6px); }
+  }
+
+  /* ── STATS TICKER ── */
+  .ticker {
+    background: var(--ink);
+    padding: 16px 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .ticker-inner {
+    display: flex;
+    gap: 0;
+    animation: ticker-scroll 30s linear infinite;
+    white-space: nowrap;
+  }
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 48px;
+    padding: 0 40px;
+    flex-shrink: 0;
+  }
+  .ticker-stat {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .ticker-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--gold-light);
+  }
+  .ticker-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+  }
+  .ticker-sep {
+    width: 4px; height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+  @keyframes ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── PROBLEM ── */
+  #problem {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px; height: 1px;
+    background: var(--gold);
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+  h2 em { font-style: italic; color: var(--gold); }
+  .body-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+  }
+  .problem-right { padding-top: 60px; }
+  .pain-list { list-style: none; display: flex; flex-direction: column; gap: 1px; }
+  .pain-item {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+  .pain-item:hover { background: var(--gold-pale); }
+  .pain-num {
+    background: var(--gold-pale);
+    border-right: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+  .pain-content { padding: 18px 20px; }
+  .pain-head {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .pain-body {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ── PRODUCT ── */
+  #product { background: var(--ink); }
+  #product .section-label { color: var(--gold-light); }
+  #product .section-label::before { background: var(--gold-light); }
+  #product h2 { color: var(--cream); }
+  #product h2 em { color: var(--gold-light); }
+  #product .body-text { color: rgba(245,240,232,0.55); }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    margin-top: 64px;
+    border: 1px solid rgba(245,240,232,0.1);
+  }
+  .product-card {
+    padding: 36px 32px;
+    border: none;
+    border-right: 1px solid rgba(245,240,232,0.1);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .product-card:last-child { border-right: none; }
+  .product-card:hover { background: rgba(196,147,58,0.07); }
+  .product-card-icon {
+    width: 44px; height: 44px;
+    border: 1px solid rgba(196,147,58,0.3);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px;
+    color: var(--gold-light);
+    font-size: 20px;
+  }
+  .product-card-num {
+    position: absolute;
+    top: 24px; right: 24px;
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: rgba(245,240,232,0.04);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .product-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .product-card p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.5);
+  }
+  .product-card-tag {
+    display: inline-block;
+    margin-top: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+  }
+
+  /* ── HOW IT WORKS ── */
+  #how {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .step:first-child { border-top: 1px solid var(--border); }
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--gold-light);
+    line-height: 1;
+    padding-top: 4px;
+  }
+  .step-content h4 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .step-content p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+
+  .how-visual {
+    position: relative;
+  }
+  .terminal {
+    background: #1A1714;
+    border: 1px solid #3D3830;
+    padding: 0;
+    overflow: hidden;
+  }
+  .terminal-bar {
+    background: #2A2520;
+    padding: 10px 16px;
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid #3D3830;
+  }
+  .terminal-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .terminal-body {
+    padding: 20px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    line-height: 1.9;
+  }
+  .t-comment { color: #5A5248; }
+  .t-key     { color: var(--gold-light); }
+  .t-val     { color: #8FB89A; }
+  .t-str     { color: #C4A882; }
+  .t-num     { color: #9BBFD4; }
+  .t-flag-ok { color: #5EB87B; }
+  .t-flag-warn { color: #E8A940; }
+  .t-cursor  {
+    display: inline-block;
+    width: 8px; height: 13px;
+    background: var(--gold);
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
+  /* ── MARKETS ── */
+  #markets { background: var(--gold-pale); }
+  .markets-intro { text-align: center; max-width: 600px; margin: 0 auto 64px; }
+  .markets-intro .section-label { justify-content: center; }
+  .markets-intro .section-label::before { display: none; }
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border-strong);
+    border: 1px solid var(--border-strong);
+  }
+  .cat-card {
+    background: var(--cream);
+    padding: 40px 28px;
+    display: flex; flex-direction: column;
+    transition: background 0.2s;
+  }
+  .cat-card:hover { background: white; }
+  .cat-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .cat-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .cat-card p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    flex: 1;
+  }
+  .cat-accuracy {
+    margin-top: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--teal-light);
+  }
+  .cat-accuracy span {
+    font-size: 18px;
+    display: block;
+    color: var(--teal);
+    margin-bottom: 2px;
+  }
+
+  /* ── FOUNDER ── */
+  #founder { background: white; }
+  .founder-inner {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .founder-portrait {
+    position: sticky;
+    top: 100px;
+  }
+  .portrait-frame {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: #E8E0D0;
+    border: 1px solid var(--border-strong);
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  .portrait-initials {
+    position: absolute;
+    inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 600;
+    color: var(--border-strong);
+    letter-spacing: 0.05em;
+  }
+  .portrait-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 16px 20px;
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .portrait-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .portrait-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+  }
+
+  .founder-content { padding-top: 10px; }
+  .founder-content .section-label { margin-bottom: 16px; }
+  .founder-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 2.5vw, 30px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--ink);
+    margin-bottom: 32px;
+    padding-left: 24px;
+    border-left: 3px solid var(--gold);
+  }
+  .founder-bio {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    margin-bottom: 40px;
+  }
+  .founder-chips {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 32px;
+  }
+  .chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid var(--border-strong);
+    color: var(--ink-soft);
+  }
+  .founder-contact a {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid var(--border-strong);
+    padding-bottom: 4px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .founder-contact a:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* ── CTA ── */
+  #cta {
+    background: var(--ink);
+    text-align: center;
+    padding: 120px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(245,240,232,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,240,232,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .cta-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+  .cta-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+  #cta h2 { color: var(--cream); font-size: clamp(32px, 5vw, 56px); margin-bottom: 20px; }
+  #cta .body-text { color: rgba(245,240,232,0.5); margin-bottom: 48px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-gold {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    background: var(--gold);
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--gold);
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-gold:hover { background: var(--gold-light); border-color: var(--gold-light); }
+  .btn-outline-light {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    background: transparent;
+    color: var(--cream);
+    text-decoration: none;
+    border: 1px solid rgba(245,240,232,0.3);
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-outline-light:hover { border-color: var(--cream); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0F0D0B;
+    padding: 48px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(245,240,232,0.06);
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--cream);
+    text-decoration: none;
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(245,240,232,0.3);
+    text-transform: uppercase;
+  }
+  .footer-links {
+    display: flex; gap: 24px; list-style: none;
+  }
+  .footer-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.35);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: rgba(245,240,232,0.8); }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 0 60px;
+    width: calc(100% - 120px);
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    #hero { grid-template-columns: 1fr; padding-top: 120px; }
+    .hero-right { display: none; }
+    #problem { grid-template-columns: 1fr; gap: 48px; }
+    .product-grid { grid-template-columns: 1fr; }
+    .product-card { border-right: none; border-bottom: 1px solid rgba(245,240,232,0.1); }
+    #how { grid-template-columns: 1fr; }
+    .category-grid { grid-template-columns: 1fr 1fr; }
+    .founder-inner { grid-template-columns: 1fr; }
+    .founder-portrait { position: static; max-width: 260px; }
+    footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Sero<span>va</span></a>
+  <ul class="nav-links">
+    <li><a href="#product">Product</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#markets">Categories</a></li>
+    <li><a href="#founder">Founder</a></li>
+  </ul>
+  <a class="nav-cta" href="#cta">Request demo</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">AI for pawn & collateral lending</div>
+    <h1>Every item has a <em>true value</em>. Now you can see it.</h1>
+    <p class="hero-sub">Serova is the AI valuation layer built for pawnbrokers — instant appraisals from a photo, fraud detection against police databases, and portfolio-wide pricing intelligence. No more gut feeling.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#cta">Request early access</a>
+      <a class="btn-ghost" href="#how">See how it works <span class="btn-ghost-arrow">→</span></a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-viz">
+      <div class="float-tag">
+        Confidence<span>97.4%</span>
+      </div>
+      <div class="scan-card">
+        <div class="scan-card-img">
+          <div class="scan-line"></div>
+          <div class="scan-cross"></div>
+          <svg class="item-silhouette" width="140" height="120" viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Watch silhouette -->
+            <rect x="52" y="20" width="36" height="44" rx="8" fill="#C4933A" opacity="0.6"/>
+            <rect x="62" y="10" width="16" height="14" rx="3" fill="#C4933A" opacity="0.4"/>
+            <rect x="62" y="62" width="16" height="14" rx="3" fill="#C4933A" opacity="0.4"/>
+            <circle cx="70" cy="42" r="14" fill="none" stroke="#C4933A" stroke-width="1.5" opacity="0.8"/>
+            <line x1="70" y1="32" x2="70" y2="42" stroke="#E8C97A" stroke-width="1.5" opacity="0.9"/>
+            <line x1="70" y1="42" x2="78" y2="46" stroke="#E8C97A" stroke-width="1.5" opacity="0.9"/>
+          </svg>
+        </div>
+        <div class="scan-card-body">
+          <div class="scan-label">AI Appraisal — Live</div>
+          <div class="scan-title">Rolex Submariner 116610LN</div>
+          <div class="scan-metrics">
+            <div class="scan-metric">
+              <div class="scan-metric-label">Loan Max</div>
+              <div class="scan-metric-val">$8,400</div>
+            </div>
+            <div class="scan-metric">
+              <div class="scan-metric-label">Retail Est.</div>
+              <div class="scan-metric-val">$14,200</div>
+            </div>
+            <div class="scan-metric">
+              <div class="scan-metric-label">Condition</div>
+              <div class="scan-metric-val">G+</div>
+            </div>
+          </div>
+          <div class="scan-status">
+            <div class="scan-status-dot"></div>
+            <span class="scan-status-text">No stolen goods match · NCIC clean · Authentication verified</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <!-- duplicated for seamless loop -->
+    <div class="ticker-item">
+      <div class="ticker-stat">
+        <span class="ticker-num">11,000+</span>
+        <span class="ticker-desc">US Pawnshops</span>
+      </div>
+      <span class="ticker-sep"></span>
+      <div class="ticker-stat">
+        <span class="ticker-num">$14B</span>
+        <span class="ticker-desc">Annual US pawn revenue</span>
+      </div>
+      <span class="ticker-sep"></span>
+      <div class="ticker-stat">
+        <span class="ticker-num">0</span>
+        <span class="ticker-desc">AI-native valuation tools</span>
+      </div>
+      <span class="ticker-sep"></span>
+      <div class="ticker-stat">
+        <span class="ticker-num">$1.2B</span>
+        <span class="ticker-desc">Pawn software market (2024)</span>
+      </div>
+      <span class="ticker-sep"></span>
+      <div class="ticker-stat">
+        <span class="ticker-num">8.7%</span>
+        <span class="ticker-desc">Market CAGR to 2033</span>
+      </div>
+      <span class="ticker-sep"></span>
+      <div class="ticker-stat">
+        <span class="ticker-num">~4min</span>
+        <span class="ticker-desc">Avg. manual appraisal time</span>
+      </div>
+      <span class="ticker-sep"></span>
+    </div>
+    <div class="ticker-item">
+      <div class="ticker-stat">
+        <span class="ticker-num">11,000+</span>
+        <span class="ticker-desc">US Pawnshops</span>
+      </div>
+      <span class="ticker-sep"></span>
+      <div class="ticker-stat">
+        <span class="ticker-num">$14B</span>
+        <span class="ticker-desc">Annual US pawn revenue</span>
+      </div>
+      <span class="ticker-sep"></span>
+      <div class="ticker-stat">
+        <span class="ticker-num">0</span>
+        <span class="ticker-desc">AI-native valuation tools</span>
+      </div>
+      <span class="ticker-sep"></span>
+      <div class="ticker-stat">
+        <span class="ticker-num">$1.2B</span>
+        <span class="ticker-desc">Pawn software market (2024)</span>
+      </div>
+      <span class="ticker-sep"></span>
+      <div class="ticker-stat">
+        <span class="ticker-num">8.7%</span>
+        <span class="ticker-desc">Market CAGR to 2033</span>
+      </div>
+      <span class="ticker-sep"></span>
+      <div class="ticker-stat">
+        <span class="ticker-num">~4min</span>
+        <span class="ticker-desc">Avg. manual appraisal time</span>
+      </div>
+      <span class="ticker-sep"></span>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="problem-left reveal">
+    <div class="section-label">The problem</div>
+    <h2>A $14 billion industry running on <em>guesswork</em></h2>
+    <p class="body-text" style="margin-bottom: 24px;">Every day, pawnbrokers across America appraise thousands of items — watches, jewellery, electronics, instruments — using personal experience, printed blue books, and instinct. The result is inconsistent valuations, mispriced loan portfolios, and a blind spot for stolen goods.</p>
+    <p class="body-text">Serova replaces the guesswork with a verifiable, real-time intelligence layer. Snap a photo. Get a certified appraisal, a fraud check, and a loan recommendation — in seconds.</p>
+  </div>
+  <div class="problem-right reveal reveal-delay-2">
+    <ul class="pain-list">
+      <li class="pain-item">
+        <div class="pain-num">01</div>
+        <div class="pain-content">
+          <div class="pain-head">No standardised valuation</div>
+          <div class="pain-body">Appraisals vary by 30–60% across shops for identical items. Staff turnover compounds the inconsistency daily.</div>
+        </div>
+      </li>
+      <li class="pain-item">
+        <div class="pain-num">02</div>
+        <div class="pain-content">
+          <div class="pain-head">Stolen goods liability</div>
+          <div class="pain-body">Pawnshops are required to cross-check items against police databases — yet most do it manually, slowly, or not at all.</div>
+        </div>
+      </li>
+      <li class="pain-item">
+        <div class="pain-num">03</div>
+        <div class="pain-content">
+          <div class="pain-head">Dead loan capital</div>
+          <div class="pain-body">Over-valued collateral erodes margins. Under-valued items drives customers to competitors. No operator has portfolio-level visibility.</div>
+        </div>
+      </li>
+      <li class="pain-item">
+        <div class="pain-num">04</div>
+        <div class="pain-content">
+          <div class="pain-head">Zero intelligence software</div>
+          <div class="pain-body">Existing POS systems log transactions but offer no predictive analytics, no market pricing, and no AI — they are digital ledgers.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- PRODUCT -->
+<section id="product">
+  <div class="reveal">
+    <div class="section-label">The platform</div>
+    <h2>Intelligence built for the<br><em>counter</em></h2>
+    <p class="body-text" style="max-width: 520px;">Three interlocking modules that work together — or drop into your existing POS as an API.</p>
+  </div>
+  <div class="product-grid">
+    <div class="product-card reveal reveal-delay-1">
+      <div class="product-card-num">01</div>
+      <div class="product-card-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      </div>
+      <h3>Lens — Image Valuation</h3>
+      <p>Photograph any item. Serova's computer vision identifies make, model, condition grade, and authenticity markers across jewellery, watches, electronics, and instruments. Returns a certified appraisal with confidence score in under 8 seconds.</p>
+      <span class="product-card-tag">Instant appraisal</span>
+    </div>
+    <div class="product-card reveal reveal-delay-2">
+      <div class="product-card-num">02</div>
+      <div class="product-card-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      </div>
+      <h3>Shield — Fraud & Theft Detection</h3>
+      <p>Every item is automatically cross-referenced against NCIC, local police databases, and Serova's proprietary stolen goods registry. Serial numbers are extracted from images. Compliance reports are generated automatically for regulatory submissions.</p>
+      <span class="product-card-tag">Real-time DB check</span>
+    </div>
+    <div class="product-card reveal reveal-delay-3">
+      <div class="product-card-num">03</div>
+      <div class="product-card-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h3>Pulse — Portfolio Intelligence</h3>
+      <p>Aggregate market pricing across eBay, auction houses, and dealer networks to dynamically optimise your loan-to-value ratios. Identify which items in your portfolio are appreciating, depreciating, or at risk — before the forfeit date arrives.</p>
+      <span class="product-card-tag">LTV optimisation</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="how-left reveal">
+    <div class="section-label">How it works</div>
+    <h2>From photo to<br>appraisal in <em>seconds</em></h2>
+    <p class="body-text" style="margin-bottom: 40px;">The entire workflow happens at the counter. No specialist knowledge required.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>Photograph the item</h4>
+          <p>Staff take 2–3 photos on any device. Serova's vision model reads condition, brand markings, model identifiers, and any visible serial numbers.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>AI classification & authentication</h4>
+          <p>The item is classified against 40M+ product records. Counterfeit signals are flagged in real-time using hallmark analysis and known fake databases.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>Fraud & database check</h4>
+          <p>Serial numbers and descriptions are checked against NCIC and partner police databases simultaneously. Result in under 3 seconds.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h4>Receive certified appraisal</h4>
+          <p>A loan recommendation, retail estimate, and condition report are returned — ready to print, display to the customer, or push to your POS system.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="how-visual reveal reveal-delay-2">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dot" style="background:#E8524A;"></div>
+        <div class="terminal-dot" style="background:#E8A940;"></div>
+        <div class="terminal-dot" style="background:#5EB87B;"></div>
+        <span style="font-family:'DM Mono',monospace; font-size:11px; color:#5A5248; margin-left:8px;">serova · appraisal engine v1.4</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-comment">// Item received — Lens module</span></div>
+        <div>&nbsp;</div>
+        <div><span class="t-key">item</span> <span style="color:#5A5248">:</span> <span class="t-str">"Rolex Submariner"</span></div>
+        <div><span class="t-key">model_ref</span> <span style="color:#5A5248">:</span> <span class="t-str">"116610LN"</span></div>
+        <div><span class="t-key">condition</span> <span style="color:#5A5248">:</span> <span class="t-val">Good+</span></div>
+        <div><span class="t-key">authenticity</span> <span style="color:#5A5248">:</span> <span class="t-flag-ok">PASS</span></div>
+        <div>&nbsp;</div>
+        <div><span class="t-comment">// Shield — database cross-check</span></div>
+        <div>&nbsp;</div>
+        <div><span class="t-key">ncic_check</span> <span style="color:#5A5248">:</span> <span class="t-flag-ok">CLEAN</span></div>
+        <div><span class="t-key">serial_match</span> <span style="color:#5A5248">:</span> <span class="t-flag-ok">NO MATCH</span></div>
+        <div><span class="t-key">stolen_registry</span> <span style="color:#5A5248">:</span> <span class="t-flag-ok">NO MATCH</span></div>
+        <div>&nbsp;</div>
+        <div><span class="t-comment">// Pulse — market pricing</span></div>
+        <div>&nbsp;</div>
+        <div><span class="t-key">retail_estimate</span> <span style="color:#5A5248">:</span> <span class="t-num">$14,200</span></div>
+        <div><span class="t-key">wholesale_est</span> <span style="color:#5A5248">:</span> <span class="t-num">$11,800</span></div>
+        <div><span class="t-key">max_loan_rec</span> <span style="color:#5A5248">:</span> <span class="t-num">$8,400</span></div>
+        <div><span class="t-key">ltv_ratio</span> <span style="color:#5A5248">:</span> <span class="t-num">59.2%</span></div>
+        <div>&nbsp;</div>
+        <div><span class="t-key">confidence</span> <span style="color:#5A5248">:</span> <span class="t-num">97.4%</span></div>
+        <div><span class="t-key">latency</span> <span style="color:#5A5248">:</span> <span class="t-num">6.8s</span></div>
+        <div>&nbsp;</div>
+        <div><span class="t-flag-ok">✓ Appraisal complete</span> <span class="t-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETS / CATEGORIES -->
+<section id="markets">
+  <div class="markets-intro reveal">
+    <div class="section-label">Asset categories</div>
+    <h2>Trained on the <em>four pillars</em> of pawn</h2>
+    <p class="body-text">Serova's models are purpose-built on millions of real pawn transactions — not generic product datasets.</p>
+  </div>
+  <div class="category-grid">
+    <div class="cat-card reveal reveal-delay-1">
+      <span class="cat-icon">💎</span>
+      <h3>Jewellery & Precious Metals</h3>
+      <p>Gold, silver, platinum, diamonds, and gemstones. Serova reads hallmarks, karat stamps, and stone specifications, then cross-checks against live spot prices and wholesale dealer comps.</p>
+      <div class="cat-accuracy"><span>94.1%</span>Valuation accuracy</div>
+    </div>
+    <div class="cat-card reveal reveal-delay-2">
+      <span class="cat-icon">⌚</span>
+      <h3>Luxury Watches</h3>
+      <p>Rolex, Patek Philippe, AP, Omega and 300+ brands. Counterfeit detection through bezel, dial, and movement fingerprinting. Market-adjusted pricing from grey market auction feeds.</p>
+      <div class="cat-accuracy"><span>97.4%</span>Authenticity confidence</div>
+    </div>
+    <div class="cat-card reveal reveal-delay-3">
+      <span class="cat-icon">📱</span>
+      <h3>Consumer Electronics</h3>
+      <p>Smartphones, laptops, cameras, gaming consoles. Model identification from chassis alone. IMEI-based stolen goods lookup. Depreciation curves updated weekly from resale markets.</p>
+      <div class="cat-accuracy"><span>96.2%</span>Model identification</div>
+    </div>
+    <div class="cat-card reveal reveal-delay-4">
+      <span class="cat-icon">🎸</span>
+      <h3>Musical Instruments</h3>
+      <p>Guitars, brass, strings, and vintage equipment. Serial-number dating for Fender, Gibson, Martin and more. Vintage premium detection. Collector market price feeds updated in real time.</p>
+      <div class="cat-accuracy"><span>91.8%</span>Brand & model accuracy</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder">
+  <div class="founder-inner">
+    <div class="founder-portrait reveal">
+      <div class="portrait-frame">
+        <div class="portrait-initials">SJ</div>
+        <div class="portrait-label">
+          <div class="portrait-name">Saksham Jain</div>
+          <div class="portrait-title">Founder & CEO, Serova</div>
+        </div>
+      </div>
+    </div>
+    <div class="founder-content reveal reveal-delay-2">
+      <div class="section-label">The founder</div>
+      <blockquote class="founder-quote">"Every pawnbroker I spoke to had the same look — they knew they were leaving money on the table, they just didn't know how much. Serova makes that visible."</blockquote>
+      <p class="founder-bio">Saksham Jain founded Serova after spending months embedded in pawnshops across the US, watching brokers appraise items with printed blue books and twenty-year-old industry knowledge. He saw a $14 billion industry with almost no software intelligence — and a gap that computer vision and real-time market data could close overnight.</p>
+      <p class="founder-bio">His focus is on building AI that earns trust at the counter — not in the boardroom. Serova's models are trained on actual pawn transaction data, with valuations validated by certified appraisers to ensure the system works for operators, not against them.</p>
+      <div class="founder-chips">
+        <span class="chip">Computer Vision</span>
+        <span class="chip">Fintech</span>
+        <span class="chip">B2B SaaS</span>
+        <span class="chip">Pawn industry</span>
+        <span class="chip">Fraud detection</span>
+        <span class="chip">AI appraisal</span>
+      </div>
+      <div class="founder-contact">
+        <a href="mailto:saksham@serova.ai">saksham@serova.ai →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-bg"></div>
+  <div class="cta-inner reveal">
+    <div class="cta-eyebrow">Early access — limited availability</div>
+    <h2>Ready to see <em>what's in your hands</em>?</h2>
+    <p class="body-text">Serova is onboarding its first 50 pawnshop partners. Join the waitlist for a free 30-day pilot — no integration required, results from day one.</p>
+    <div class="cta-btns">
+      <a class="btn-gold" href="#">Request early access</a>
+      <a class="btn-outline-light" href="#">Book a demo call</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="#">Sero<span>va</span></a>
+  <span class="footer-copy">© 2025 Serova Inc. All rights reserved.</span>
+  <ul class="footer-links">
+    <li><a href="#">Privacy</a></li>
+    <li><a href="#">Terms</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav scroll effect
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.padding = window.scrollY > 60 ? '14px 60px' : '20px 60px';
+  });
+</script>
+</body>
+</html>
